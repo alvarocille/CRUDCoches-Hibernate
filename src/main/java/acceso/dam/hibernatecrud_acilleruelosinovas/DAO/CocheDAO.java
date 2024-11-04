@@ -1,6 +1,6 @@
-package acceso.dam.mongocrud_acilleruelosinovas.DAO;
+package acceso.dam.hibernatecrud_acilleruelosinovas.DAO;
 
-import acceso.dam.mongocrud_acilleruelosinovas.domain.Coche;
+import acceso.dam.hibernatecrud_acilleruelosinovas.domain.Coche;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 

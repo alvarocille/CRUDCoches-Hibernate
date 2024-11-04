@@ -1,4 +1,4 @@
-package acceso.dam.mongocrud_acilleruelosinovas.domain;
+package acceso.dam.hibernatecrud_acilleruelosinovas.domain;
 
 import javax.persistence.*;
 

@@ -1,4 +1,4 @@
-package acceso.dam.mongocrud_acilleruelosinovas.Utils;
+package acceso.dam.hibernatecrud_acilleruelosinovas.Utils;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;

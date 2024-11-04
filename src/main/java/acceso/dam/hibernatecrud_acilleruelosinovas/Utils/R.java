@@ -1,4 +1,4 @@
-package acceso.dam.mongocrud_acilleruelosinovas.Utils;
+package acceso.dam.hibernatecrud_acilleruelosinovas.Utils;
 
 import java.io.File;
 import java.io.InputStream;

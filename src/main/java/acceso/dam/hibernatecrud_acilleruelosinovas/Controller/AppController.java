@@ -1,24 +1,36 @@
-package acceso.dam.mongocrud_acilleruelosinovas.Controller;
+package acceso.dam.hibernatecrud_acilleruelosinovas.Controller;
 
-import acceso.dam.mongocrud_acilleruelosinovas.DAO.CocheDAO;
-import acceso.dam.mongocrud_acilleruelosinovas.Utils.AlertUtils;
-import acceso.dam.mongocrud_acilleruelosinovas.Utils.HibernateUtil;
-import acceso.dam.mongocrud_acilleruelosinovas.domain.Coche;
+import acceso.dam.hibernatecrud_acilleruelosinovas.DAO.CocheDAO;
+import acceso.dam.hibernatecrud_acilleruelosinovas.DAO.MultaDAO;
+import acceso.dam.hibernatecrud_acilleruelosinovas.Utils.AlertUtils;
+import acceso.dam.hibernatecrud_acilleruelosinovas.Utils.HibernateUtil;
+import acceso.dam.hibernatecrud_acilleruelosinovas.Utils.R;
+import acceso.dam.hibernatecrud_acilleruelosinovas.domain.Coche;
+import acceso.dam.hibernatecrud_acilleruelosinovas.domain.Multa;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import java.sql.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
-import static acceso.dam.mongocrud_acilleruelosinovas.Utils.AlertUtils.*;
-import static acceso.dam.mongocrud_acilleruelosinovas.Utils.Validador.*;
+import static acceso.dam.hibernatecrud_acilleruelosinovas.AppConfig.ejemplo;
+import static acceso.dam.hibernatecrud_acilleruelosinovas.Utils.AlertUtils.*;
+import static acceso.dam.hibernatecrud_acilleruelosinovas.Utils.Validador.*;
 
 /**
  * El controlador principal de la aplicación que gestiona la interacción de la interfaz de usuario
@@ -26,7 +38,7 @@ import static acceso.dam.mongocrud_acilleruelosinovas.Utils.Validador.*;
  */
 public class AppController {
     @FXML
-    private Button nuevoButton, guardarButton, modificarButton, eliminarButton, limpiarButton;
+    private Button nuevoButton, guardarButton, modificarButton, eliminarButton, multasButton;
     @FXML
     private TextField matriculaField, marcaField, modeloField;
     @FXML
@@ -47,7 +59,10 @@ public class AppController {
     private final CocheDAO cocheDAO;
     private Coche cocheSeleccionado;
     private boolean editando = false;
-    private boolean ejemplo = true; // Decide si CREA (true) o NO (false) datos de ejemplo
+    private enum Accion {
+        NUEVO, MODIFICAR
+    }
+    private Accion accion;
 
     /**
      * Constructor del controlador, que inicializa la instancia de {@link CocheDAO}
@@ -56,11 +71,6 @@ public class AppController {
     public AppController() {
         cocheDAO = new CocheDAO();
     }
-
-    private enum Accion {
-        NUEVO, MODIFICAR
-    }
-    private Accion accion;
 
     /**
      * Inicializa la interfaz de usuario, configurando las columnas de la tabla,
@@ -94,7 +104,7 @@ public class AppController {
             session.clear();
             ObservableList<Coche> coches = FXCollections.observableArrayList(cocheDAO.obtenerTodosLosCoches(session));
             if (coches.isEmpty() && ejemplo) {
-                this.ejemplo = false;
+                ejemplo = false;
                 generarDatos();
                 cargarCoches();
             } else {
@@ -288,6 +298,36 @@ public class AppController {
         cargarCoches();
     }
 
+    @FXML
+    public void verMultas() {
+        try {
+            // Crear una instancia del controlador y pasarle el manejador de la base de datos.
+            MultasController controller = new MultasController();
+
+            // Cargar la interfaz gráfica desde el archivo FXML.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(R.getUI("multas.fxml"));
+            loader.setController(controller);  // Asignar el controlador a la vista.
+            VBox vbox = loader.load();  // Cargar el diseño de la interfaz desde el archivo FXML.
+
+            // Crear la escena con el layout cargado.
+            Scene scene = new Scene(vbox);
+            Stage stageMultas = new Stage(); // Crear un nuevo escenario
+            stageMultas.setScene(scene);  // Asignar la escena al escenario.
+            stageMultas.setTitle("CRUD Coches");  // Establecer el título de la ventana.
+
+            // Establecer un ícono para la ventana.
+            Image icono = new Image(Objects.requireNonNull(R.getImage("coche.png")));
+            stageMultas.getIcons().add(icono);
+
+            // Mostrar la ventana.
+            stageMultas.initModality(Modality.APPLICATION_MODAL);
+            stageMultas.show();
+        } catch (Exception e) {
+            System.out.println("Error al cargar las multas: " + e.getMessage());
+        }
+    }
+
     /**
      * Genera datos de ejemplo de coches para la tabla.
      */
@@ -314,6 +354,7 @@ public class AppController {
             cocheDAO.insertCoche(coche8, session);
             cocheDAO.insertCoche(coche9, session);
             cocheDAO.insertCoche(coche10, session);
+
         } catch (Exception e) {
             System.err.println("Error al insertar los coches: " + e.getMessage());
         }

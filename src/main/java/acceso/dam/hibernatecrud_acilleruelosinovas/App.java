@@ -1,7 +1,7 @@
-package acceso.dam.mongocrud_acilleruelosinovas;
+package acceso.dam.hibernatecrud_acilleruelosinovas;
 
-import acceso.dam.mongocrud_acilleruelosinovas.Controller.AppController;
-import acceso.dam.mongocrud_acilleruelosinovas.Utils.R;
+import acceso.dam.hibernatecrud_acilleruelosinovas.Controller.AppController;
+import acceso.dam.hibernatecrud_acilleruelosinovas.Utils.R;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
