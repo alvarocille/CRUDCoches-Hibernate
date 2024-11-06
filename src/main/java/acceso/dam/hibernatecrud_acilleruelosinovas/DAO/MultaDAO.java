@@ -1,5 +1,6 @@
 package acceso.dam.hibernatecrud_acilleruelosinovas.DAO;
 
+import acceso.dam.hibernatecrud_acilleruelosinovas.domain.Coche;
 import acceso.dam.hibernatecrud_acilleruelosinovas.domain.Multa;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -31,6 +32,7 @@ public class MultaDAO {
             transaction = session.beginTransaction();
             multas = session.createQuery("from Multa", Multa.class).list();
             transaction.commit();
+            System.out.println(multas);
         } catch (Exception e) {
             if(transaction != null) {
                 transaction.rollback();
@@ -38,6 +40,10 @@ public class MultaDAO {
             System.err.println("Error al obtener todas las multas: " + e.getMessage());
         }
         return Objects.requireNonNullElse(multas, Collections.emptyList());
+    }
+
+    public List<Multa> obtenerMultas(Coche coche) {
+        return coche.getMultas();
     }
 
     /**

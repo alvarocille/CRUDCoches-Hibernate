@@ -27,8 +27,8 @@
             <RowConstraints minHeight="30.0" />
             <RowConstraints minHeight="30.0" />
         </rowConstraints>
-        <Label text="Matricula" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-        <TextField fx:id="matriculaField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <Label text="ID Coche" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <TextField fx:id="cocheField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
         <Label text="Identificador" GridPane.rowIndex="1" />
         <TextField fx:id="idField" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <GridPane.margin>
@@ -59,7 +59,7 @@
         <Button fx:id="eliminarButton" onAction="#eliminarMulta" text="Eliminar" GridPane.columnIndex="3" />
         <Button fx:id="guardarButton" disable="true" onAction="#guardarMulta" text="Guardar" GridPane.columnIndex="1" />
     </GridPane>
-    <TableView fx:id="tablaMultas" onMouseClicked="#seleccionarCoche" prefHeight="392.0" prefWidth="325.0" VBox.vgrow="ALWAYS">
+    <TableView fx:id="tablaMultas" onMouseClicked="#seleccionarMulta" prefHeight="392.0" prefWidth="325.0" VBox.vgrow="ALWAYS">
         <columns>
             <TableColumn fx:id="colMulta" prefWidth="108.0" text="ID MULTA" />
             <TableColumn fx:id="colPrecio" prefWidth="75.0" text="Precio" />

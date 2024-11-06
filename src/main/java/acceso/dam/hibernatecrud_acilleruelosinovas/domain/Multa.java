@@ -5,31 +5,37 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "multa", indexes = {
-        @Index(name = "idx_multa_id", columnList = "id")
+        @Index(name = "idx_multa_id", columnList = "id_multa")
 })
 public class Multa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idMulta;
+    private Integer id_multa;
     private Double precio;
     private LocalDate fecha;
-    private String matricula;
+    @Column(insertable = false, updatable = false)
+    private Integer id_coche;
 
-    public Multa() {}
+    @ManyToOne
+    @JoinColumn(name="id_coche", referencedColumnName="id")
+    private Coche coche;
 
-    public Multa(Double precio, LocalDate fecha, String matricula) {
+    public Multa() {
+    }
+
+    public Multa(Double precio, LocalDate fecha, int id_coche) {
         this.precio = precio;
         this.fecha = fecha;
-        this.matricula = matricula;
+        this.id_coche = id_coche;
     }
 
     public Integer getIdMulta() {
-        return idMulta;
+        return id_multa;
     }
 
-    public void setIdMulta(Integer idMulta) {
-        this.idMulta = idMulta;
+    public void setIdMulta(Integer id_multa) {
+        this.id_multa = id_multa;
     }
 
     public Double getPrecio() {
@@ -48,21 +54,21 @@ public class Multa {
         this.fecha = fecha;
     }
 
-    public String getMatricula() {
-        return matricula;
+    public Integer getCoche() {
+        return id_coche;
     }
 
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
+    public void setCoche(Integer id_coche) {
+        this.id_coche = id_coche;
     }
 
     @Override
     public String toString() {
         return "Multa{" +
-                "idMulta=" + idMulta +
+                "id_multa=" + id_multa +
                 ", precio=" + precio +
                 ", fecha=" + fecha +
-                ", matricula='" + matricula + '\'' +
+                ", id_coche='" + id_coche + '\'' +
                 '}';
     }
 }

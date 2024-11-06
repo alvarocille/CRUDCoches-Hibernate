@@ -1,12 +1,10 @@
 package acceso.dam.hibernatecrud_acilleruelosinovas.Controller;
 
 import acceso.dam.hibernatecrud_acilleruelosinovas.DAO.CocheDAO;
-import acceso.dam.hibernatecrud_acilleruelosinovas.DAO.MultaDAO;
 import acceso.dam.hibernatecrud_acilleruelosinovas.Utils.AlertUtils;
 import acceso.dam.hibernatecrud_acilleruelosinovas.Utils.HibernateUtil;
 import acceso.dam.hibernatecrud_acilleruelosinovas.Utils.R;
 import acceso.dam.hibernatecrud_acilleruelosinovas.domain.Coche;
-import acceso.dam.hibernatecrud_acilleruelosinovas.domain.Multa;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,12 +21,10 @@ import javafx.stage.Stage;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import static acceso.dam.hibernatecrud_acilleruelosinovas.AppConfig.ejemplo;
 import static acceso.dam.hibernatecrud_acilleruelosinovas.Utils.AlertUtils.*;
 import static acceso.dam.hibernatecrud_acilleruelosinovas.Utils.Validador.*;
 
@@ -97,19 +93,12 @@ public class AppController {
 
     /**
      * Carga la lista de coches desde la base de datos y los muestra en la tabla.
-     * Si no hay coches, genera datos de ejemplo.
      */
     public void cargarCoches() {
         try {
             session.clear();
             ObservableList<Coche> coches = FXCollections.observableArrayList(cocheDAO.obtenerTodosLosCoches(session));
-            if (coches.isEmpty() && ejemplo) {
-                ejemplo = false;
-                generarDatos();
-                cargarCoches();
-            } else {
-                tablaCoches.setItems(coches);
-            }
+            tablaCoches.setItems(coches);
         } catch (Exception e) {
             System.err.println("Error al cargar los coches: " + e.getMessage());
         }
@@ -302,7 +291,7 @@ public class AppController {
     public void verMultas() {
         try {
             // Crear una instancia del controlador y pasarle el manejador de la base de datos.
-            MultasController controller = new MultasController();
+            MultasController controller = new MultasController(cocheSeleccionado);
 
             // Cargar la interfaz gráfica desde el archivo FXML.
             FXMLLoader loader = new FXMLLoader();
@@ -325,38 +314,6 @@ public class AppController {
             stageMultas.show();
         } catch (Exception e) {
             System.out.println("Error al cargar las multas: " + e.getMessage());
-        }
-    }
-
-    /**
-     * Genera datos de ejemplo de coches para la tabla.
-     */
-    public void generarDatos() {
-        try {
-            Coche coche1 = new Coche("1122BBC", "Renault", "Clio", "Familiar");
-            Coche coche2 = new Coche("2233DDB", "Seat", "Ibiza", "Familiar");
-            Coche coche3 = new Coche("3344FFC", "Seat", "Leon", "Deportivo");
-            Coche coche4 = new Coche("4455BBZ", "Ford", "S-Max", "Monovolumen");
-            Coche coche5 = new Coche("5566CCR", "Ford", "Kuga", "SUV");
-            Coche coche6 = new Coche("6677FFD", "Nissan", "Micra", "Familiar");
-            Coche coche7 = new Coche("7788JJZ", "Volkswagen", "Passat", "Familiar");
-            Coche coche8 = new Coche("8899BBV", "Volkswagen", "T-ROC", "SUV");
-            Coche coche9 = new Coche("9911FFG", "Volkswagen", "Touran", "Monovolumen");
-            Coche coche10 = new Coche("8855GFR", "Renault", "Scenic", "Monovolumen");
-
-            cocheDAO.insertCoche(coche1, session);
-            cocheDAO.insertCoche(coche2, session);
-            cocheDAO.insertCoche(coche3, session);
-            cocheDAO.insertCoche(coche4, session);
-            cocheDAO.insertCoche(coche5, session);
-            cocheDAO.insertCoche(coche6, session);
-            cocheDAO.insertCoche(coche7, session);
-            cocheDAO.insertCoche(coche8, session);
-            cocheDAO.insertCoche(coche9, session);
-            cocheDAO.insertCoche(coche10, session);
-
-        } catch (Exception e) {
-            System.err.println("Error al insertar los coches: " + e.getMessage());
         }
     }
 

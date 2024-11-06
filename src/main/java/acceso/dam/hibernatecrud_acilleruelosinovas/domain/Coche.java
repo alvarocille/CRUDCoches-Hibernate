@@ -1,6 +1,7 @@
 package acceso.dam.hibernatecrud_acilleruelosinovas.domain;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Clase que representa un coche con atributos como matrícula, marca, modelo y tipo.
@@ -17,12 +18,14 @@ import javax.persistence.*;
 public class Coche {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private int id;
     private String matricula;
     private String marca;
     private String modelo;
     private String tipo;
+
+    @OneToMany(mappedBy = "coche", cascade = CascadeType.ALL)
+    private List<Multa> multas;
 
     /**
      * Constructor que inicializa un objeto {@link Coche} con los valores especificados (con id).
@@ -133,6 +136,14 @@ public class Coche {
      */
     public void setModelo(String modelo) {
         this.modelo = modelo;
+    }
+
+    public List<Multa> getMultas() {
+        return multas;
+    }
+
+    public void setMultas(List<Multa> multas) {
+        this.multas = multas;
     }
 
     /**
