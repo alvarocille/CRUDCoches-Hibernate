@@ -20,6 +20,11 @@ import org.hibernate.SessionFactory;
 import java.time.LocalDate;
 import java.util.Optional;
 
+import static acceso.dam.hibernatecrud_acilleruelosinovas.Utils.AlertUtils.*;
+import static acceso.dam.hibernatecrud_acilleruelosinovas.Utils.Validador.validarTextoNoVacio;
+import static java.lang.Double.parseDouble;
+import static java.lang.Integer.parseInt;
+
 /**
  * Controlador de la vista de multas, maneja la lógica de la interfaz de usuario relacionada con la gestión de multas.
  * Permite crear, modificar, eliminar y visualizar multas asociadas a un coche específico.
@@ -52,9 +57,11 @@ public class MultasController {
     }
 
     private boolean editando = false;
+
     private enum Accion {
         NUEVO, MODIFICAR
     }
+
     private Accion accion;
 
     /**
@@ -88,9 +95,9 @@ public class MultasController {
         try {
             ObservableList<Multa> multas = null;
             if (coche != null) {
-                multas =  FXCollections.observableArrayList(multaDAO.obtenerMultas(coche));
+                multas = FXCollections.observableArrayList(multaDAO.obtenerMultas(coche));
             } else {
-                multas =  FXCollections.observableArrayList(multaDAO.obtenerTodasLasMultas(session));
+                multas = FXCollections.observableArrayList(multaDAO.obtenerTodasLasMultas(session));
             }
             tablaMultas.setItems(multas);
         } catch (Exception e) {
@@ -181,7 +188,7 @@ public class MultasController {
         }
         LocalDate fecha = fechaField.getValue();
 
-        Multa multa = new Multa(id,parseDouble(precio), fecha, coche, coche.getId());
+        Multa multa = new Multa(id, parseDouble(precio), fecha, coche, coche.getId());
 
         try {
             switch (accion) {
@@ -259,4 +266,5 @@ public class MultasController {
         precioField.setText(multaSeleccionada.getPrecio().toString());
         fechaField.setValue(multaSeleccionada.getFecha());
     }
+
 }
