@@ -28,16 +28,16 @@
             <RowConstraints minHeight="30.0" />
         </rowConstraints>
         <Label text="ID Coche" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-        <TextField fx:id="cocheField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <TextField fx:id="cocheField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="0" />
         <Label text="Identificador" GridPane.rowIndex="1" />
-        <TextField fx:id="idField" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <TextField fx:id="idField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets />
          </GridPane.margin></TextField>
         <Label text="Precio" GridPane.rowIndex="2" />
-        <TextField fx:id="precioField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <TextField fx:id="precioField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
         <Label text="Fecha" GridPane.rowIndex="3" />
-      <DatePicker fx:id="fechaField" prefHeight="31.0" prefWidth="266.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <DatePicker fx:id="fechaField" editable="false" prefHeight="31.0" prefWidth="266.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
     </GridPane>
     <GridPane hgap="10.0" vgap="10">
         <columnConstraints>

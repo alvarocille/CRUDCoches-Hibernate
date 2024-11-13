@@ -38,6 +38,28 @@ public class CocheDAO {
     }
 
     /**
+     * Obtiene un coche por su ID.
+     *
+     * @param id el ID del coche que se desea obtener..
+     * @param session la sesión de Hibernate usada para interactuar con la base de datos.
+     * @return un objeto {@link Coche} que representa el vehículo obtenido.
+     */
+    public Coche obtenerCoche(int id, Session session) {
+        Transaction transaction = null;
+        Coche coche = null;
+        try {
+            transaction = session.beginTransaction();
+            coche = session.createQuery("from Coche where id = :id", Coche.class).setParameter("id", id)
+                    .uniqueResult();;
+            transaction.commit();
+        } catch (Exception e) {
+            if(transaction != null)
+                transaction.rollback();
+        }
+        return coche;
+    }
+
+    /**
      * Inserta un nuevo coche en la colección.
      *
      * @param coche el objeto {@link Coche} a insertar en la colección.

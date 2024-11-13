@@ -138,10 +138,20 @@ public class Coche {
         this.modelo = modelo;
     }
 
+    /**
+     * Obtiene las multas del coche.
+     *
+     * @return las multas del coche.
+     */
     public List<Multa> getMultas() {
         return multas;
     }
 
+    /**
+     * Establece las multas del coche.
+     *
+     * @param multas las multas del coche.
+     */
     public void setMultas(List<Multa> multas) {
         this.multas = multas;
     }

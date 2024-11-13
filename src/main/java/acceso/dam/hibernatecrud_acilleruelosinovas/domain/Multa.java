@@ -24,9 +24,18 @@ public class Multa {
     public Multa() {
     }
 
-    public Multa(Double precio, LocalDate fecha, int id_coche) {
+    public Multa(Double precio, LocalDate fecha, Coche coche, int id_multa) {
         this.precio = precio;
         this.fecha = fecha;
+        this.coche = coche;
+        this.id_coche = id_coche;
+    }
+
+    public Multa(Integer id_multa, Double precio, LocalDate fecha, Coche coche, int id_coche) {
+        this.id_multa = id_multa;
+        this.precio = precio;
+        this.fecha = fecha;
+        this.coche = coche;
         this.id_coche = id_coche;
     }
 
@@ -54,12 +63,20 @@ public class Multa {
         this.fecha = fecha;
     }
 
-    public Integer getCoche() {
+    public Integer getCocheID() {
         return id_coche;
     }
 
-    public void setCoche(Integer id_coche) {
+    public void setCocheID(Integer id_coche) {
         this.id_coche = id_coche;
+    }
+
+    public Coche getCoche() {
+        return coche;
+    }
+
+    public void setCoche(Coche coche) {
+        this.coche = coche;
     }
 
     @Override
@@ -69,6 +86,7 @@ public class Multa {
                 ", precio=" + precio +
                 ", fecha=" + fecha +
                 ", id_coche='" + id_coche + '\'' +
+                ", coche=" + coche +
                 '}';
     }
 }
